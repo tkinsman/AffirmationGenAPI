@@ -239,38 +239,6 @@ NSFW | String | The NSFW category of affirmations. This should be gotten with di
 
 [Affirmation Response Parameters](#affirmation-response)
 
-## Get List of Popular Affirmations
-
-```javascript
-
-
-```
-
-```shell
-
-
-
-```
-
-```http
-
-
-```
-
-> The above command returns JSON structured like this:
-
-```json
-
-```
-
-
-### HTTP Request
-
-`GET http://138.68.48.6:8080/affirmation-project/affirmationservice/affirmations/`
-
-*Instructions to come*
-
-[Affirmation Response Parameters](#affirmation-response)
 
 ## Up-vote an Affirmation 
 
