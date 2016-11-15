@@ -2,11 +2,11 @@
 title: Affirmation Generator API
 
 language_tabs:
-  - JavaScript
-  - Swift
+  - javascript: JavaScript
+  - shell: cURL
+  - http: HTTP
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
   - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 includes:
@@ -17,80 +17,115 @@ search: true
 
 # Introduction
 
-Welcome to the Affirmation API! You can use our API to access Affirmation API endpoints, which can send you an affirmation (or affirmations) from different affirmation categories in our database.
+Welcome to the Affirmation API! You can use our API to access Affirmation API endpoints that can send you an affirmation (or affirmations) from different affirmation categories in our database.
 
-We have language bindings in [Shell, Ruby, and Python]! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+We have language bindings in  JavaScript, Shell, and HTTP. You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+
 
 This example API documentation page was created with [Slate](https://github.com/tripit/slate).
 
 # Authentication
 
-> To authorize, use this code:
 
-```ruby
-require 'kittn'
+```javascript
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
+jQuery.ajax({
+    url: "http://138.68.48.6:8080/affirmation-project/affirmationservice/affirmations",
+    type: "GET",
+    headers: {
+        "Authorization": "Basic ************==",
+        "Content-Type": "multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__",
+    },
+})
+.done(function(data, textStatus, jqXHR) {
+    console.log("HTTP Request Succeeded: " + jqXHR.status);
+    console.log(data);
+})
+.fail(function(jqXHR, textStatus, errorThrown) {
+    console.log("HTTP Request Failed");
+})
+.always(function() {
+    /* ... */
+});
 
-```python
-import kittn
 
-api = kittn.authorize('meowmeowmeow')
 ```
 
 ```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+
+curl -X "GET" "http://138.68.48.6:8080/affirmation-project/affirmationservice/affirmations" \
+     -H "Content-Type: multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__" \
+     -u user:password
+
 ```
 
-```javascript
-const kittn = require('kittn');
+```http
 
-let api = kittn.authorize('meowmeowmeow');
+GET /affirmation-project/affirmationservice/affirmations HTTP/1.1
+Authorization: Basic ************=
+Content-Type: multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__
+Host: 138.68.48.6:8080
+Connection: close
+User-Agent: Paw/3.0.12 (Macintosh; OS X/10.11.6) GCDHTTPRequest
+
 ```
 
-> Make sure to replace `meowmeowmeow` with your API key.
+Affirmation Generator uses basic authentication to allow access to the API with a user name and password. All requests must add the proper authentication to a request for a valid response. You can request a user name and password by emailing the developers. 
 
-Affirmation Generator uses basic authentication to allow access to the API with a user name and password to generate basic authorization. You can request a user name and password by emailing [The Developers](todd.kinsman@gmail.com).
+### Developer Contact Information
 
-Affirmation Generator expects the authorization header to be included in all API requests to the server in a header that looks like the following:
+Developer | Email
+--------- | -----------
+Todd | todd.kinsman@gmail.com
+Sandi | sandineedstogivepermission@gmail.com
 
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
 
 # Affirmations
 
 ## Get All Affirmations
 
-```ruby
-require 'kittn'
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
+```javascript
 
-```python
-import kittn
+jQuery.ajax({
+    url: "http://138.68.48.6:8080/affirmation-project/affirmationservice/affirmations",
+    type: "GET",
+    headers: {
+        "Authorization": "Basic ************=",
+        "Content-Type": "multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__",
+    },
+})
+.done(function(data, textStatus, jqXHR) {
+    console.log("HTTP Request Succeeded: " + jqXHR.status);
+    console.log(data);
+})
+.fail(function(jqXHR, textStatus, errorThrown) {
+    console.log("HTTP Request Failed");
+})
+.always(function() {
+    /* ... */
+});
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
+
 ```
 
 ```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
+
+curl -X "GET" "http://138.68.48.6:8080/affirmation-project/affirmationservice/affirmations" \
+     -H "Content-Type: multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__" \
+     -u user:password
+
 ```
 
-```javascript
-const kittn = require('kittn');
+```http
 
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
+GET /affirmation-project/affirmationservice/affirmations HTTP/1.1
+Authorization: Basic ************=
+Content-Type: multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__
+Host: 138.68.48.6:8080
+Connection: close
+User-Agent: Paw/3.0.12 (Macintosh; OS X/10.11.6) GCDHTTPRequest
+
 ```
 
 > The above command returns JSON structured like this:
@@ -129,12 +164,61 @@ This endpoint retrieves all Affirmations.
 
 [Affirmation Response Parameters](#affirmation-response)
 <aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+A successful response is the best affirmation of all!
 </aside>
 
 ## Get Affirmation by Category
 
-`GET http://138.68.48.6:8080/affirmationservice/affirmations/categories/{category name parameter}`
+```javascript
+
+jQuery.ajax({
+    url: "http://138.68.48.6:8080/affirmation-project/affirmationservice/affirmations/categories/Happiness",
+    type: "GET",
+    headers: {
+        "Authorization": "Basic dXNlcjoqKioqKiBIaWRkZW4gY3JlZGVudGlhbHMgKioqKio=",
+        "Content-Type": "multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__",
+    },
+})
+.done(function(data, textStatus, jqXHR) {
+    console.log("HTTP Request Succeeded: " + jqXHR.status);
+    console.log(data);
+})
+.fail(function(jqXHR, textStatus, errorThrown) {
+    console.log("HTTP Request Failed");
+})
+.always(function() {
+    /* ... */
+});
+
+```
+
+```shell
+
+curl -X "GET" "http://138.68.48.6:8080/affirmation-project/affirmationservice/affirmations/categories/Happiness" \
+     -H "Content-Type: multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__" \
+     -u user:***** Hidden credentials *****
+
+```
+
+```http
+
+GET /affirmation-project/affirmationservice/affirmations/categories/Happiness HTTP/1.1
+Authorization: ***** Hidden credentials *****
+Content-Type: multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__
+Host: 138.68.48.6:8080
+Connection: close
+User-Agent: Paw/3.0.12 (Macintosh; OS X/10.11.6) GCDHTTPRequest
+
+```
+> The above command returns JSON structured like this:
+
+```json
+
+```
+
+### HTTP Request
+
+`GET http://138.68.48.6:8080/affirmation-project/affirmationservice/affirmations/categories/{category name parameter}`
 
 ### URL Parameters
 
@@ -157,6 +241,31 @@ NSFW | String | The NSFW category of affirmations. This should be gotten with di
 
 ## Get List of Popular Affirmations
 
+```javascript
+
+
+```
+
+```shell
+
+
+
+```
+
+```http
+
+
+```
+
+> The above command returns JSON structured like this:
+
+```json
+
+```
+
+
+### HTTP Request
+
 `GET http://138.68.48.6:8080/affirmation-project/affirmationservice/affirmations/`
 
 *Instructions to come*
@@ -164,6 +273,69 @@ NSFW | String | The NSFW category of affirmations. This should be gotten with di
 [Affirmation Response Parameters](#affirmation-response)
 
 ## Up-vote an Affirmation 
+
+```javascript
+
+jQuery.ajax({
+    url: "http://138.68.48.6:8080/affirmation-project/affirmationservice/affirmations/upvote/3",
+    type: "PUT",
+    headers: {
+        "Authorization": "Basic dXNlcjoqKioqKiBIaWRkZW4gY3JlZGVudGlhbHMgKioqKio=",
+        "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+    },
+    contentType: "application/x-www-form-urlencoded",
+    data: {
+    },
+})
+.done(function(data, textStatus, jqXHR) {
+    console.log("HTTP Request Succeeded: " + jqXHR.status);
+    console.log(data);
+})
+.fail(function(jqXHR, textStatus, errorThrown) {
+    console.log("HTTP Request Failed");
+})
+.always(function() {
+    /* ... */
+});
+
+
+```
+
+```shell
+
+curl -X "PUT" "http://138.68.48.6:8080/affirmation-project/affirmationservice/affirmations/upvote/3" \
+     -H "Content-Type: application/x-www-form-urlencoded; charset=utf-8" \
+     -u user:***** Hidden credentials *****
+
+```
+
+```http
+
+PUT /affirmation-project/affirmationservice/affirmations/upvote/3 HTTP/1.1
+Authorization: ***** Hidden credentials *****
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+Host: 138.68.48.6:8080
+Connection: close
+User-Agent: Paw/3.0.12 (Macintosh; OS X/10.11.6) GCDHTTPRequest
+Content-Length: 0
+
+
+```
+
+> The above command returns JSON structured like this:
+
+```json
+
+  {
+    "affirmationId": 3,
+    "phrase": "Happiness is my birthright. I embrace happiness as my set point state of being.",
+    "rating": 16,
+    "categoryId": 1
+  }
+
+```
+
+### HTTP Request
 
 `PUT http://138.68.48.6:8080/affirmation-project/affirmationservice/affirmations/upvote/{affirmationId}`
 
@@ -179,6 +351,68 @@ affirmationId | int | The id of the affirmation you wish to *upvote*.
 
 ## Down-vote an Affirmation 
 
+```javascript
+
+jQuery.ajax({
+    url: "http://138.68.48.6:8080/affirmation-project/affirmationservice/affirmations/downvote/3",
+    type: "PUT",
+    headers: {
+        "Authorization": "Basic dXNlcjoqKioqKiBIaWRkZW4gY3JlZGVudGlhbHMgKioqKio=",
+        "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+    },
+    contentType: "application/x-www-form-urlencoded",
+    data: {
+    },
+})
+.done(function(data, textStatus, jqXHR) {
+    console.log("HTTP Request Succeeded: " + jqXHR.status);
+    console.log(data);
+})
+.fail(function(jqXHR, textStatus, errorThrown) {
+    console.log("HTTP Request Failed");
+})
+.always(function() {
+    /* ... */
+});
+
+
+```
+
+```shell
+
+curl -X "PUT" "http://138.68.48.6:8080/affirmation-project/affirmationservice/affirmations/downvote/3" \
+     -H "Content-Type: application/x-www-form-urlencoded; charset=utf-8" \
+     -u user:***** Hidden credentials *****
+
+```
+
+```http
+
+PUT /affirmation-project/affirmationservice/affirmations/downvote/3 HTTP/1.1
+Authorization: ***** Hidden credentials *****
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+Host: 138.68.48.6:8080
+Connection: close
+User-Agent: Paw/3.0.12 (Macintosh; OS X/10.11.6) GCDHTTPRequest
+Content-Length: 0
+
+```
+
+> The above command returns JSON structured like this:
+
+```json
+ 
+  {
+    "affirmationId": 3,
+    "phrase": "Happiness is my birthright. I embrace happiness as my set point state of being.",
+    "rating": 15,
+    "categoryId": 1
+  }
+
+```
+
+### HTTP Request
+
 `PUT http://138.68.48.6:8080/affirmation-project/affirmationservice/affirmations/downvote/{affirmationId}`
 
 You must know the id of the affirmation you wish to *downvote* in order to create a valid request.
@@ -193,57 +427,70 @@ affirmationId | int | The id of the affirmation you wish to *downvote*.
 
 ## Get a Specific Affirmation
 
-```ruby
-require 'kittn'
+```javascript
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
+jQuery.ajax({
+    url: "http://138.68.48.6:8080/affirmation-project/affirmationservice/affirmations/4",
+    type: "GET",
+    headers: {
+        "Authorization": "Basic dXNlcjoqKioqKiBIaWRkZW4gY3JlZGVudGlhbHMgKioqKio=",
+        "Content-Type": "multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__",
+    },
+})
+.done(function(data, textStatus, jqXHR) {
+    console.log("HTTP Request Succeeded: " + jqXHR.status);
+    console.log(data);
+})
+.fail(function(jqXHR, textStatus, errorThrown) {
+    console.log("HTTP Request Failed");
+})
+.always(function() {
+    /* ... */
+});
 
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
 ```
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
+
+curl -X "GET" "http://138.68.48.6:8080/affirmation-project/affirmationservice/affirmations/4" \
+     -H "Content-Type: multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__" \
+     -u user:***** Hidden credentials *****
+
 ```
 
-```javascript
-const kittn = require('kittn');
+```http
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
+GET /affirmation-project/affirmationservice/affirmations/4 HTTP/1.1
+Authorization: ***** Hidden credentials *****
+Content-Type: multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__
+Host: 138.68.48.6:8080
+Connection: close
+User-Agent: Paw/3.0.12 (Macintosh; OS X/10.11.6) GCDHTTPRequest
+
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
+
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+	"affirmationId":4,
+	"phrase":"I feel joy and contentment in this moment right now.",
+	"rating":2,
+	"categoryId":1
 }
+
 ```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`GET http://138.68.48.6:8080/affirmation-project/affirmationservice/affirmations/{affirmaitonID}`
 
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the kitten to retrieve
+affirmaitonID | The ID of the affirmation to retrieve
 
 ## Affirmation Response
 
