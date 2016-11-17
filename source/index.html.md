@@ -77,7 +77,6 @@ Affirmation Generator uses basic authentication to allow access to the API with 
 Developer | Email
 --------- | -----------
 Todd | todd.kinsman@gmail.com
-Sandi | sandineedstogivepermission@gmail.com
 
 
 # Affirmations
@@ -159,6 +158,15 @@ This endpoint retrieves all Affirmations.
 
 `GET http://138.68.48.6:8080/affirmation-project/affirmationservice/affirmations/`
 
+
+### URL Parameters
+
+`GET http://138.68.48.6:8080/affirmation-project/affirmationservice/affirmations/limit/{limit}`
+
+Parameter | Type | Description
+--------- | ----------- | --------
+limit | int | int to limit number affirmations returned
+
 ### Response Parameters
 
 
@@ -220,9 +228,13 @@ User-Agent: Paw/3.0.12 (Macintosh; OS X/10.11.6) GCDHTTPRequest
 
 `GET http://138.68.48.6:8080/affirmation-project/affirmationservice/affirmations/categories/{category name parameter}`
 
+
 ### URL Parameters
 
-The table lists the {category name parameters} available to generate a valid response. 
+
+`GET http://138.68.48.6:8080/affirmation-project/affirmationservice/affirmations/categories//{categoryName}/{limit}`
+
+The table lists the {category name parameters} available to generate a valid response and optional {limit}. 
 
 Parameter | Type | Description
 --------- | ----------- | --------
@@ -236,6 +248,7 @@ Peace | String | The Peace category of affirmations
 Mindfulness | String | The Mindfulness category of affirmations
 Inner Calm | String | The Inner Calm category of affirmations
 NSFW | String | The NSFW category of affirmations. This should be gotten with discretion! No safe for kids
+limit | int | limit for affirmations returned
 
 [Affirmation Response Parameters](#affirmation-response)
 
@@ -459,6 +472,71 @@ User-Agent: Paw/3.0.12 (Macintosh; OS X/10.11.6) GCDHTTPRequest
 Parameter | Description
 --------- | -----------
 affirmaitonID | The ID of the affirmation to retrieve
+
+## Get Popular By Category
+
+```javascript
+
+jQuery.ajax({
+    url: "http://138.68.48.6:8080/affirmation-project/affirmationservice/affirmations/popular/Success/1",
+    type: "GET",
+    headers: {
+        "Authorization": "Basic dXNlcjoqKioqKiBIaWRkZW4gY3JlZGVudGlhbHMgKioqKio=",
+        "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+    },
+})
+.done(function(data, textStatus, jqXHR) {
+    console.log("HTTP Request Succeeded: " + jqXHR.status);
+    console.log(data);
+})
+.fail(function(jqXHR, textStatus, errorThrown) {
+    console.log("HTTP Request Failed");
+})
+.always(function() {
+    /* ... */
+});
+
+
+```
+
+```shell
+
+curl -X "GET" "http://138.68.48.6:8080/affirmation-project/affirmationservice/affirmations/popular/Success/1" \
+     -H "Content-Type: application/x-www-form-urlencoded; charset=utf-8" \
+     -u user:***** Hidden credentials *****
+
+```
+
+```http
+
+GET /affirmation-project/affirmationservice/affirmations/popular/Success/1 HTTP/1.1
+Authorization: ***** Hidden credentials *****
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+Host: 138.68.48.6:8080
+Connection: close
+User-Agent: Paw/3.0.13 (Macintosh; OS X/10.11.6) GCDHTTPRequest
+
+```
+
+```json
+[
+  {
+	  "affirmationId":26,
+  	  "phrase":"Mistakes and setbacks are stepping stones to my success because I learn from them.",
+	  "rating":4,
+	  "categoryId":3}
+]
+```
+
+
+### HTTP Request
+
+`GET http://138.68.48.6:8080/affirmation-project/affirmationservice/popular/{categoryName}/{limit}`
+
+Parameter | Type | Description
+--------- | ----------- | --------
+categoryName | String | category name to get popular affirmations
+limit | int | int to limit number affirmations returned
 
 ## Affirmation Response
 
